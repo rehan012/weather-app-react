@@ -6,7 +6,7 @@ export default function App() {
   const [data, setData] = useState({})
   const [location, setLocation] = useState('')
 
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=fa97b2f401f6de2674b9512321708261&units=metric`
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${process.env.REACT_APP_KEY}&units=metric`
 
   const searchLocation = () => {
     if(location !== ''){
