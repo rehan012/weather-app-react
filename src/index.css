@@ -55,9 +55,18 @@ h1 {
 }
 
 ::placeholder {
-  color: #1ac41a;
+  color: #f8f8f8;
 }
 
+.app button {
+  padding : 8px;
+  margin-left : 5px;
+  border-radius: 25px;
+  border: 1px solid rgba(255,255,255, 0.8);
+  background: rgba(14, 11, 11, 0.1);
+  color: #f8f8f8;
+  
+}
 
 main {
   max-width: 700px;

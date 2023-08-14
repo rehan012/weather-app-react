@@ -1,54 +1,72 @@
 import axios from 'axios'
-import React from 'react'
+import React, { useState } from 'react'
 
 
 export default function App() {
+  const [data, setData] = useState({})
+  const [location, setLocation] = useState('')
 
-  // const url = `https://api.openweathermap.org/data/2.5/weather?q=London&appid=fa97b2f401f6de2674b9512321708261`
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=fa97b2f401f6de2674b9512321708261&units=metric`
 
+  const searchLocation = () => {
+    if(location !== ''){
+    axios.get(url).then((response) => {
+      setData(response.data)
+      console.log(response.data)
+    }).catch((err) => alert("Enter a valid City Name"))
+    setLocation('')
+
+  }}
 
   return (
     <div className="app">
 
-      <header className = "search">
-        <input />
+      <header className="search">
+        <input value={location}
+          onChange={event => setLocation(event.target.value)}
+          placeholder='Enter Location'
+          type="text" />
+
+        <button type="submit" onClick={searchLocation}>Submit</button>
 
       </header>
 
       <main>
         <header>
           <section className="location">
-            <p>London</p>
+            <p>{data.name}</p>
 
           </section>
           <section className="temp">
-            <h1> Temp </h1>
+          {data.main ? <h1>{data.main.temp.toFixed()}°C</h1> : null}
           </section>
           <section className="description">
-            <p>Clouds</p>
+          {data.weather ? <p>{data.weather[0].main}</p> : null}
 
           </section>
 
         </header>
+        {data.name !== undefined &&
         <footer>
           <section className="feels">
 
-            <p>65 deg C</p>
+          {data.main ? <p className='bold'>{data.main.feels_like.toFixed()}°C</p> : null}
             <p>Feels Like</p>
           </section>
           <section className="humidity">
 
-            <p> 20 %</p>
+          {data.main ? <p className='bold'>{data.main.humidity}%</p> : null}
             <p>Humidity</p>
           </section>
           <section className="wind">
 
-            <p> 12 MPH</p>
+          {data.wind ? <p className='bold'>{data.wind.speed.toFixed()*3.6} KMPH</p> : null}
             <p>Wind Speed</p>
 
           </section>
 
         </footer>
+        }
 
       </main>
     </div>
