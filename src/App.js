@@ -24,6 +24,7 @@ export default function App() {
       <header className="search">
         <input value={location}
           onChange={event => setLocation(event.target.value)}
+          
           placeholder='Enter Location'
           type="text" />
 
